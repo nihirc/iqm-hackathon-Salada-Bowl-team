@@ -1,109 +1,68 @@
 # Digital-analog Variational Quantum Eigensolver
 
+Womanium Hackathon 2022 Salada Bowl team project
+
 *A challenge provided by IQM Quantum Computers*
 
-This repository contains description and examples for the DAQC VQE challenge for the Womanium Hackathon 2022.
+This repository contains solution artifacts submitted by Salada Bowl team for the Womanium hackathon 2022.
 
-## Summary
+## 1.Team Name - Salada Bowl
 
-This task is to develop a new VQE ansatz based on the digital-analog quantum computing (DAQC) framework. The ansatz will combine analog evolution of the processor hamiltonian with single qubit gates placed at the right time intervals. The model has potential to be “more hardware efficient” than typical hardware efficient ansätze.
+## 2. Team Members
+* Atsushi Ueda (Discord id - aueda#6800, Github id - darts, Email - atsushi-ueda@g.ecc.u-tokyo.ac.jp)
+* Prashant Sharma (Discord id - sharmap#7046, Github id - nanophile, Email - sharmap@bu.edu)
+* Nihir Chadderwala (Discord id - Jafi#8361, Github id - nihirc, Email - Nihirc@live.com)
+* Razeen Shuja (Discord id - Razeen#8475, Github id - Razeen-ud-din, Email - Razeenshuja@gmail.com)
+* Luis Ayala (Discord id - Luis Gerardo Ayala B.#3006, Github id - LuGerAyala, Email - layalab@unicartagena.edu.co)
+* Saba Bozpolat (Discord id - saba#6364, Github id - sbbzplt, Email - saba.bozpolat@gmail.com)
 
-## Motivation
+## 3. Pitch Presenter - Saba Bozpolat
 
-An important task in Quantum Chemistry is to find the ground state energy of the system in question. This ground state energy actually corresponds to the minimal eigenvalue of the Hamiltonian of the system. The Variational Quantum Eigensolver algorithm (VQE) is one way to estimate this minimal eigenvalue that can actually be executed on a NISQ device.
-However, in the NISQ era the noise introduced by gates is a problem. Digital-Analog Quantum Computing (DAQC) allows us to reduce the number of gates needed to perform quantum algorithms. It combines digital single qubit gates with analog multi-qubit blocks.
-VQE is one of the algorithms, where DAQC has the potential to be “more hardware efficient” and thus allow for better ground state energy estimation than purely digital quantum computing in the NISQ era.
+## 4. Digital-analog Variational Quantum Eigensolver --> by IQM
+https://github.com/iqm-finland/iqm-academy-womanium-hackathon-DAQC-VQE
 
-## Technical description
-
-The VQE estimates the minimal eigenvalue $λ_{min}$ of a given (Hermitian) matrix $H$ by giving an upper boundary $\lambda_\Theta$ with $\lambda_{min} \leq \lambda_{\Theta}$. The corresponding eigenstate is noted as $\ket{ψ_{min}}$.
-
-In order to find a good upper boundary, VQE uses a parametrized circuit U with parameters $θ=(p_1,p_2,…)$ (referred to as $U(θ)$ ). The idea is that the algorithm learns the best parameters to prepare the eigenstate $\ket{ψ(θ)}$ that belongs to the upper bound $λ_θ$. For this an ansatz is chosen. Ansätze (plural for ansatz) describe how sequences of gates are applied to qubits.
-
-This circuit $U$ is then applied to some prepared state $\ket{ψ}$ (can be $\ket{0..0}$ though). This leaves us with the trial state:
-
-$$U(θ)|ψ⟩=|ψ(θ)⟩$$
-
-From this state, $λ_θ$ can be retrieved as the expectation value of:
-$$⟨ψ(θ)|H|ψ(θ)⟩=λ_θ$$  
-
-In the beginning this expectation value will be way off. But we can now use classical postprocessing to minimize the expectation value by iteratively finding better parameters $θ=(p_1,p_2,…)$.
-
-![Variational algorithm principle](assets/variational-algorithms.png)
-
-For quantum chemistry, you can now do the following: 
-1. Get the molecule’s Hamiltonian. Let’s assume it has the terms $Z_1$, $Z_1 Z_2$, $X_1 X_2 Y_1 Y_2$, 
-2. Prepare the trial state $|ψ(θ)⟩$ by your ansatz, 
-3. Measure the expectation value of the terms $Z_1$, $Z_1 Z_2$, $X_1 X_2 Y_1 Y_2$ for that trial state. With many measurements of these three quantities, you construct the total expectation value of the molecule's Hamiltonian and keep optimizing it classically.
-
-
-Normally, VQE uses digital quantum gates. However, the multi-qubit gates involved in a VQE ansatz can be switched to analog multi-qubit blocks.  
-
-The challenge is to combine both approaches and create a VQE implementation that uses analog multi-qubit blocks. This is a promising approach to utilize DAQC. Your first challenge is to develop a circuit ansatz and choose a parametrization for it.
-
-Start trying with a nearest-neighbors Ising Hamiltonian on a one-dimensional device (where all N qubits are lined up in a string like so: x—x—x—x):
-
-
-  ![Formula](assets/formula0.png)
-
-After this, your new version should be compared to a solely digital approach (one that uses just normal gates). Then you can really spice things up and see how things change. We have some recommendations below.
-
-The project is judged according to the following metrics:
-
-* Technical soundness: You will receive full points in this category if you have a working implementation for a DAQC VQE and if you have it applied to one example use-case (e.g. for a $H^2$ molecule ... (additional problems give extra points)) (40%).
-* Analysis: You will receive full points in this category if you compared the DAQC approach to a solely digital quantum computing approach by answering at least 2 questions. Example questions can be: “How do different Hamiltonians affects the DAQC VQE?” How much more accurate do we get in different configurations? How does it compare to digital quantum computing?) (20%).
-* Explanation: You will receive full points if you are able to communicate your idea and analysis in an understandable way. This can be done via text in the Jupyter notebook, explanations in the code, and by establishing links to existing theory (20%).
-* Presentation: Part of the judgement is also how you present your result. The presentation should be engaging and insightful (20%).
-
-
-## Jupyter Notebooks
-We prepared/curated two notebooks that will help you grasp the concepts involved in this challenge description.
-The first is an implementation of the Variational Quantum Eigensolver. In this notebook, we will use Qiskit to apply VQE to estimate the ground energy of the $H^2$ molecule.
-
-[IQM-challenge-variational-quantum-eigensolver.pynb](https://github.com/iqm-finland/iqm-academy-womanium-hackathon-DAQC-VQE/blob/main/IQM-challenge-variational-quantum-eigensolver.ipynb)
-
-The second notebook will show you how to build an analog multi-qubit block in Qiskit. This uses the HamiltonianGate class for the analog building blocks.
-
-[IQM-challenge-DAQC example-qiskit.ipynb](https://github.com/iqm-finland/iqm-academy-womanium-hackathon-DAQC-VQE/blob/main/IQM-challenge-DAQC%20example-qiskit.ipynb)
-
-## Ideas for experimentation
-After you finished your first implementation of DAQC VQE, we encourage you to experiment with the concept and your code. Please find below some ideas:
-* Instead of just a two-body Ising Hamiltonian you can also include three-body terms such as: 
+## 5. Summary
+ [Taken from the IQM challenge github and modified by A.U and P.S]
+ 
+  An important task in quantum chemistry and condensed matter physics is to find the ground state energy of the system in question. From the computational point of view, this corresponds to solving the minimal eigenvalue of the Hamiltonian of the system. The Variational Quantum Eigensolver algorithm (VQE) is one way to estimate this minimal eigenvalue that can be executed on a near-term intermediate-scale quantum computation (NISQ) device.
   
-  ![Formula](assets/formula.png)
-  
-  As there are more entangling terms, this Hamiltonian may allow for more entanglement per layer of the ansatz. How does that affect the result, or the number of layers required?
-
-* Imagine two different configurations of nearest-neighbors Hamiltonians. One of them is a 1D chain, and the other is a central architecture (star shape). Both have the same number of qubits and connections, but in different configurations. Which one performs better? Any hypothesis why?
-
-```
-1D chain 
-
-x—x—x—x
-
-star shape
-    x
-    |
- x–—x–—x
-    |
-    x
-```
-
-## Additional resources
-* Paper "Digital-Analog Quantum Computation"
-by Adrian Parra-Rodriguez, Pavel Lougovski, Lucas Lamata, Enrique Solano, and Mikel Sanz: https://arxiv.org/abs/1812.03637 
-* Paper "Approximating the Quantum Approximate Optimisation Algorithm" by David Headley, Thorge Müller, Ana Martin, Enrique Solano, Mikel Sanz, and Frank K. Wilhelm: https://arxiv.org/abs/2002.12215
-* Overview article about DAQC: https://arxiv.org/abs/2101.08448
-
-## Additional sources you can check out for different frameworks
-
-* Qiskit example: https://qiskit.org/textbook/ch-applications/vqe-molecules.html
-* Cirq example: https://quantumai.google/cirq/experiments/variational_algorithm
-* Pennylane example: https://pennylane.ai/qml/demos/tutorial_vqe.html and some examples for ansätze https://pennylane.ai/qml/glossary/circuit_ansatz.html
+  ![digital_full](https://user-images.githubusercontent.com/101638759/186098060-52121615-3a61-4216-bd27-6150ee9a6599.png)
 
 
-## Licence
+  It is a variational eigensolver, the parameters of which are used to construct a trial quantum state by quantum circuits. These parameterized quantum circuits are called ansatz and consist of several quantum gates, as shown in the figure. The created trial state $\ket{\psi(\vec{\theta)}}$ is then used to measure the expectation value of the Hamiltonian $E(\vec{\theta})$ as 
+$$E(\vec{\theta})=\frac{\bra{\psi(\vec{\theta})}\hat{H}\ket{\psi(\vec{\theta})}}{\langle\psi(\vec{\theta})|\psi(\vec{\theta})\rangle}.$$
+The parameters $\vec{\theta}$ are iteratively optimized so that $E(\vec{\theta})$ takes the lower value until it converges. In previous studies, this type of VQEs is shown to correctly find the ground state energy of several molecules under noise-free conditions with sufficient numbers of digital gates in the ansatz(digital VQE).
 
-The first notebook `IQM-challenge-variational-quantum-eigensolver.pynb` is part of Qiskit and licensed under Apache Licence 2.0 by IBM. This version has been altered from [the original](https://github.com/Qiskit/qiskit-tutorials/blob/master/tutorials/algorithms/03_vqe_simulation_with_noise.ipynb) by adding a custom ansatz. You can find a copy of this LICENSE in the root folder of this repository or at [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
+However, in the NISQ era the noise introduced by gates is a problem, and digital-VQEs are no exception. To tackle this problem, A. Parra-Rodriguez et al. introduced the notion of Digital-Analog Quantum Computing (DAQC) that allows us to reduce the number of gates needed to perform quantum algorithms. It combines digital single qubit gates with analog multi-qubit blocks. VQE is one of the algorithms, where DAQC has the potential to be “more hardware efficient” and thus allow for better ground state energy estimation than purely digital quantum computing in the NISQ era. \
+  In this paper, we introduce a new type of VQE ansatz called digital-analog variational quantum eigensolver(DA-VQE) based on digital-analog quantum computing. We show that, for certain digital quantum circuits, we can construct the exactly equivalent digital-analog circuits with fewer gates. Adopting these circuits as the ansatz allows us to compare the performance of DA-VQEs and digital-VQEs. As a result, our simulation on qiskit indicates that DA-VQE indeed outperform digital-VQE under noisy conditions.\
+  Moreover, we propose a new application of VQE, quantum machine learning. While the VQE has been successful in quantum chemistry as a quantum algorithm, the applications to the other fields have been limited. We demonstrate that the complex entangled nature of the ground-state wave function is capable of encoding information and of being used as a prediction model. As our VQE-based machine learning can classify both classical and quantum train data, we believe that it will be a new playground for quantum computing.
 
-The other code and the text is licenced under Apache Licence 2.0 by IQM Quantum Computers.
+## 6. File description
+
+### DA_VQE.py (Module)
+Python module that has necessary functions such as loading molecule data and exact eigensolvers.
+
+### Digital_Analog_VQE.ipynb(main result) 
+Digitai_Analog_VQE(Ising).ipynb
+
+Implementation and Application of digital-analog VQEs to Quantum Chemistry. (H2, LiH, BeH2)
+
+### DA_VQE_LiH.ipynb(Atomic distance optimization)
+Optimal interatomic distance is investigated by using digital-analog VQE developped in “Digital_Analog_VQE.ipynb."
+
+### VQE_compare.ipynb(comparison)
+Comparison of digital-analog VQEs with digital VQEs with/without noise. The equivalence of digital and analog gates and the difference in performance are demonstrated.
+
+### Machine_learning_with_DAVQE.ipynb(VQE-based algorithm of machine learning)
+datasetA.npy and datasetB.npy 
+
+VQE-based supervised machine learning algorithm that we developped. “datasetA.npy" and “datasetB.npy” are the train data of distinct probabilistic distributions, and in the main file, we creat a quantum-machine-learning prediciton model.
+
+### DA_VQE_qiskit_ml.ipynb(Comparison of various optimizations)
+The convergence of the energy depending on different choices of optimizers are discussed.
+
+### Presentation.pdf
+Contains presentation deck
+
+### manuscript.pdf
+Directly sent to Stefan Seegerer.
