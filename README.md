@@ -9,12 +9,12 @@ This repository contains solution artifacts submitted by Salada Bowl team for th
 ## 1.Team Name - Salada Bowl
 
 ## 2. Team Members
-* Atsushi Ueda (Discord id - aueda#6800, Github id - darts, Email - atsushi-ueda@g.ecc.u-tokyo.ac.jp)
-* Prashant Sharma (Discord id - sharmap#7046, Github id - nanophile, Email - sharmap@bu.edu)
-* Nihir Chadderwala (Discord id - Jafi#8361, Github id - nihirc, Email - Nihirc@live.com)
-* Razeen Shuja (Discord id - Razeen#8475, Github id - Razeen-ud-din, Email - Razeenshuja@gmail.com)
-* Luis Ayala (Discord id - Luis Gerardo Ayala B.#3006, Github id - LuGerAyala, Email - layalab@unicartagena.edu.co)
-* Saba Bozpolat (Discord id - saba#6364, Github id - sbbzplt, Email - saba.bozpolat@gmail.com)
+* Atsushi Ueda (Discord id - aueda#6800, Github id - darts)
+* Prashant Sharma (Discord id - sharmap#7046, Github id - nanophile)
+* Nihir Chadderwala (Discord id - Jafi#8361, Github id - nihirc)
+* Razeen Shuja (Discord id - Razeen#8475, Github id - Razeen-ud-din)
+* Luis Ayala (Discord id - Luis Gerardo Ayala B.#3006, Github id - LuGerAyala)
+* Saba Bozpolat (Discord id - saba#6364, Github id - sbbzplt)
 
 ## 3. Pitch Presenter - Saba Bozpolat
 
